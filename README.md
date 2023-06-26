@@ -7,6 +7,7 @@ pip install Pillow
 
 # create database
 CREATE DATABASE djangoblog_db CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 CREATE USER 'djangoblog_user'@'localhost' IDENTIFIED BY 'djangoblog_password';
 GRANT ALL PRIVILEGES ON djangoblog_db.* TO 'djangoblog_user'@'localhost';
 
