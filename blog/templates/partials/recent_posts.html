@@ -1,0 +1,19 @@
+{% load static %}
+{% if recent_posts %}
+<div class="widget">
+    <h2 class="widget-title">Recent Posts</h2>
+    <div class="blog-list-widget">
+        <div class="list-group">
+            {% for post in recent_posts %}
+            <a href="{% url 'blog:post_details' post.slug %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="w-100 justify-content-between">
+                    <img src="{% if post.post_image %}/media/{{ post.post_image }}{% else %}{% static 'upload/recent_post.jpeg' %}{% endif %}" alt="" class="img-fluid float-left">
+                    <h5 class="mb-1">{{ post.title }}</h5>
+                    <small>{{ post.published_date|date:'j M, Y' }}</small>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div><!-- end blog-list -->
+</div><!-- end widget -->
+{% endif %}

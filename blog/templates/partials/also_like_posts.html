@@ -1,0 +1,32 @@
+{% load static %}
+{% if also_like_posts %}
+<div class="custombox clearfix">
+    <h4 class="small-title">You may also like</h4>
+    <div class="row">
+        {% for post in also_like_posts %}
+        <div class="col-lg-6">
+            <div class="blog-box">
+                <div class="post-media">
+                    <a href="{% url 'blog:post_details' post.slug %}" title="{{ post.title }}">
+                        <img src="{% if post.post_image %}/media/{{ post.post_image }}{% else %}{% static 'upload/single_post.jpg' %}{% endif %}" alt="{{ post.title }}" class="img-fluid">
+                        <div class="hovereffect">
+                            <span class=""></span>
+                        </div><!-- end hover -->
+                    </a>
+                </div><!-- end media -->
+                <div class="blog-meta">
+                    <h4><a href="{% url 'blog:post_details' post.slug %}" title="{{ post.title }}">{{ post.title }}</a></h4>
+                    <small>
+                        {% for category in post.category.all %}
+                            <a href="{% url 'blog:category_posts' category.slug %}"
+                                title="{{ category.title }}">{{ category.title }}</a>{% if forloop.counter > 1 %}, {% endif %}
+                        {% endfor %}
+                    </small>
+                    <small>{{ post.published_date|date:'j M, Y' }}</small>
+                </div><!-- end meta -->
+            </div><!-- end blog-box -->
+        </div><!-- end col -->
+        {% endfor %}
+    </div><!-- end row -->
+</div><!-- end custom-box -->
+{% endif %}

@@ -1,0 +1,12 @@
+{% if popular_categories %}
+<div class="widget">
+    <h2 class="widget-title">Popular Categories</h2>
+    <div class="link-widget">
+        <ul>
+            {% for category in popular_categories %}
+                <li><a href="{% url 'blog:category_posts' category.slug %}">{{ category.title }} <span>({{ category.total_posts }})</span></a></li>
+            {% endfor %}
+        </ul>
+    </div><!-- end link-widget -->
+</div><!-- end widget -->
+{% endif %}

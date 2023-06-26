@@ -1,0 +1,31 @@
+{% load static %}
+{% if top_posts %}
+<section class="section first-section">
+    <div class="container-fluid">
+        <div class="masonry-blog clearfix">
+            {% for post in top_posts %}
+                <div class="center-side">
+                    <div class="masonry-box post-media">
+                        <img src="{% if post.post_image %}/media/{{ post.post_image }}{% else %}{% static 'upload/top_post.jpg' %}{% endif %}" alt="{{ post.title }}" class="img-fluid">
+                        <div class="shadoweffect">
+                            <div class="shadow-desc">
+                                <div class="blog-meta">
+                                    <span class="bg-aqua">
+                                        {% for category in post.category.all %}
+                                            <a href="{% url 'blog:category_posts' category.slug %}"
+                                                title="{{ category.title }}">{{ category.title }}</a>{% if forloop.counter > 1 %}, {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                    <h4><a href="{% url 'blog:post_details' post.slug %}" title="{{ post.title }}">{{ post.title }}</a></h4>
+                                    <small><a href="#" title="">{{ post.published_date|date:'j M, Y' }}</a></small>
+                                    <small><a href="#" title="">by {{ post.author }}</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end shadow-desc -->
+                        </div><!-- end shadow -->
+                    </div><!-- end post-media -->
+                </div><!-- end left-side -->
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

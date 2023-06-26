@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% load random_numbers %}
+
+{% block title %}
+<title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="page-title wb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h2><i class="fa fa-leaf bg-green"></i> Blog</h2>
+            </div><!-- end col -->
+            <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Blog</li>
+                </ol>
+            </div><!-- end col -->                    
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end page-title -->
+<section class="section wb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-wrapper">
+                    <div class="blog-title-area">
+                        <span class="color-green">
+                            {% for category in post.category.all %}
+                                <a href="{% url 'blog:category_posts' category.slug %}"
+                                    title="{{ category.title }}">{{ category.title }}</a>{% if forloop.counter > 1 %}, {% endif %}
+                            {% endfor %}
+                        </span>
+
+                        <h3>{{ post.title }}</h3>
+
+                        <div class="blog-meta big-meta">
+                            <small><a href="garden-single.html" title="">{{ post.published_date|date:'j M, Y' }}</a></small>
+                            <small><a href="blog-author.html" title="">by {{ postItem.author }}</a></small>
+                            <small><a href="#" title=""><i class="fa fa-eye"></i> {% random_int 1 1000 %}</a></small>
+                        </div><!-- end meta -->
+
+                        {% include './partials/sharing_buttons.html' %}
+                    </div><!-- end title -->
+
+                    <div class="single-post-media">
+                        <img src="{% if post.post_image %}/media/{{ post.post_image }}{% else %}{% static 'upload/single_post.jpg' %}{% endif %}" alt="" class="img-fluid">
+                    </div><!-- end media -->
+
+                    <div class="blog-content">  
+                        {{ post.content }}
+                    </div><!-- end content -->
+
+                    <div class="blog-title-area">
+                        <div class="tag-cloud-single">
+                            <span>Tags</span>
+                            <small><a href="#" title="">lifestyle</a></small>
+                            <small><a href="#" title="">colorful</a></small>
+                            <small><a href="#" title="">trending</a></small>
+                            <small><a href="#" title="">another tag</a></small>
+                        </div><!-- end meta -->
+
+                        {% include './partials/sharing_buttons.html' %}
+                    </div><!-- end title -->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="banner-spot clearfix">
+                                <div class="banner-img">
+                                    <img src="{% static 'upload/banner_01.jpg' %}" alt="" class="img-fluid">
+                                </div><!-- end banner-img -->
+                            </div><!-- end banner -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+
+                    <hr class="invis1">
+
+                    {% include './partials/post_author.html' with author=post.author %}
+
+                    <hr class="invis1">
+
+                    {% include './partials/also_like_posts.html' %}
+
+                    <hr class="invis1">
+
+                    {% include './partials/post_comments.html' %}
+
+                    <hr class="invis1">
+
+                    {% include './partials/comment_form.html' %}
+                </div><!-- end page-wrapper -->
+            </div><!-- end col -->
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="sidebar">
+                    {% include './partials/search_form_sidebar.html' %}
+                    {% include './partials/recent_posts.html' %}
+                    {% include './partials/advertising.html' %}
+                    {% include './partials/instagram_feed.html' %}
+                    {% include './partials/popular_categories.html' %}
+                </div><!-- end sidebar -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+{% endblock %}

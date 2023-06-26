@@ -1,0 +1,9 @@
+{% if nav_categories %}
+<ul class="navbar-nav">
+    {% for category in nav_categories %}
+        <li class="nav-item">
+            <a class="nav-link color-green-hover" href="{% url 'blog:category_posts' category.slug %}">{{ category.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}

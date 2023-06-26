@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include './partials/top_posts.html' %}
+    <section class="section wb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-wrapper">
+                        <div class="blog-list clearfix">
+                            {% for post in latest_posts %}
+                                {% include './partials/post_item.html' with postItem=post %}
+                                <hr class="invis">
+                                {% if forloop.counter == 5 %}
+                                    <div class="row">
+                                        <div class="col-lg-10 offset-lg-1">
+                                            <div class="banner-spot clearfix">
+                                                <div class="banner-img">
+                                                    <img src="{% static 'upload/banner_05.jpg' %}" alt="" class="img-fluid">
+                                                </div><!-- end banner-img -->
+                                            </div><!-- end banner -->
+                                        </div><!-- end col -->
+                                    </div><!-- end row -->
+                                    <hr class="invis">
+                                {% endif %}
+                            {% endfor %}
+                        </div><!-- end blog-list -->
+                    </div><!-- end page-wrapper -->
+                    <hr class="invis">
+                    {% include './partials/pagination.html' %}
+                </div><!-- end col -->
+
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sidebar">
+                        {% include './partials/search_form_sidebar.html' %}
+                        {% include './partials/recent_posts.html' %}
+                        {% include './partials/advertising.html' %}
+                        {% include './partials/instagram_feed.html' %}
+                        {% include './partials/popular_categories.html' %}
+                    </div><!-- end sidebar -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+{% endblock %}

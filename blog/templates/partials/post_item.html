@@ -1,0 +1,25 @@
+{% load static %}
+{% load random_numbers %}
+<div class="blog-box row">
+    <div class="col-md-4">
+        <div class="post-media">
+            <a href="{% url 'blog:post_details' postItem.slug %}" title="{{ postItem.title }}">
+                <img src="{% if postItem.post_image %}/media/{{ postItem.post_image }}{% else %}{% static 'upload/post_item.jpg' %}{% endif %}" alt="{{ postItem.title }}" class="img-fluid">
+                <div class="hovereffect"></div>
+            </a>
+        </div><!-- end media -->
+    </div><!-- end col -->
+    <div class="blog-meta big-meta col-md-8">
+        <span class="bg-aqua">
+            {% for category in postItem.category.all %}
+                <a href="{% url 'blog:category_posts' category.slug %}"
+                    title="{{ category.title }}">{{ category.title }}</a>{% if forloop.counter > 1 %}, {% endif %}
+            {% endfor %}
+        </span>
+        <h4><a href="{% url 'blog:post_details' postItem.slug %}" title="{{ postItem.title }}">{{ postItem.title }}</a></h4>
+        <p>{{ postItem.content|truncatechars:300 }}</p>
+        <small><a href="#" title=""><i class="fa fa-eye"></i> {% random_int 1 1000 %}</a></small>
+        <small><a href="#" title="">{{ postItem.published_date|date:'j M, Y' }}</a></small>
+        <small><a href="#" title="">by {{ postItem.author }}</a></small>
+    </div><!-- end meta -->
+</div><!-- end blog-box -->
